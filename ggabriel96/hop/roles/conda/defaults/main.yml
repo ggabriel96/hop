@@ -1,2 +1,2 @@
 ---
-miniconda_install_dir: "{{ ansible_env.HOME }}"
+install_dir: "{{ ansible_env.HOME }}/miniconda3/"

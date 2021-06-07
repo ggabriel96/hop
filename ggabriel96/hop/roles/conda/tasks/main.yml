@@ -1,7 +1,7 @@
 ---
 - name: Check if already installed
   ansible.builtin.stat:
-    path: "{{ miniconda_install_dir }}/miniconda3/"
+    path: "{{ install_dir }}"
   register: is_miniconda_installed
 
 - when: not is_miniconda_installed.stat.exists
@@ -17,6 +17,7 @@
         argv:
           - /tmp/miniconda-install.sh
           - -b
+          - -p {{ install_dir }}
 
     - name: Clean up
       ansible.builtin.file:
