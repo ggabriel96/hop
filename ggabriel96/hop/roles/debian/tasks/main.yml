@@ -1,0 +1,29 @@
+---
+- name: Update all
+  when: update_all
+  become: yes
+  ansible.builtin.apt:
+    name: "*"
+    state: latest
+    update_cache: yes
+
+- name: Add fish shell repository
+  when: "'fish' in system_packages"
+  ansible.builtin.apt_repository:
+    repo: ppa:fish-shell/release-3
+    state: present
+    validate_certs: yes
+
+- name: Install system packages
+  become: yes
+  ansible.builtin.apt:
+    name: "{{ system_packages }}"
+    update_cache: yes
+    state: latest
+
+- name: Clean up
+  become: yes
+  when: cleanup
+  ansible.builtin.apt:
+    autoclean: yes
+    autoremove: yes
