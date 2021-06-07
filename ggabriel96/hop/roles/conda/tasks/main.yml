@@ -1,0 +1,24 @@
+---
+- name: Check if already installed
+  ansible.builtin.stat:
+    path: "{{ miniconda_install_dir }}/miniconda3/"
+  register: is_miniconda_installed
+
+- when: not is_miniconda_installed.stat.exists
+  block:
+    - name: Download
+      ansible.builtin.get_url:
+        url: https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+        dest: /tmp/miniconda-install.sh
+        mode: "0755"
+
+    - name: Install
+      ansible.builtin.command:
+        argv:
+          - /tmp/miniconda-install.sh
+          - -b
+
+    - name: Clean up
+      ansible.builtin.file:
+        path: /tmp/miniconda-install.sh
+        state: absent

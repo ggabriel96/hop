@@ -1,0 +1,4 @@
+---
+is_miniconda_installed:
+  stat:
+    exists: false
