@@ -1,0 +1,22 @@
+---
+- import_role:
+    name: install
+  vars:
+    system: [ flatpak ]
+
+- name: Add Flathub repository
+  when: add_flathub
+  become: true
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    method: system
+    flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+
+- name: Install packages
+  community.general.flatpak:
+    name: item
+    remote: flathub
+    method: system
+    state: present
+  loop: "{{ packages }}"
