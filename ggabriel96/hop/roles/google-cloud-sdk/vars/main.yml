@@ -1,0 +1,4 @@
+---
+is_cloudsdk_installed:
+  stat:
+    exists: false

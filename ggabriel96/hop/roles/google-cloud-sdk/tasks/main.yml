@@ -1,0 +1,25 @@
+---
+- name: Check if already installed
+  ansible.builtin.stat:
+    path: "{{ cloudsdk_install_dir }}/google-cloud-sdk/"
+  register: is_cloudsdk_installed
+
+- when: not is_cloudsdk_installed.stat.exists
+  block:
+    - name: Download
+      ansible.builtin.get_url:
+        url: https://sdk.cloud.google.com
+        dest: /tmp/cloudsdk-install.sh
+        mode: "0755"
+
+    - name: Install
+      ansible.builtin.command:
+        argv:
+          - /tmp/cloudsdk-install.sh
+          - --disable-prompts
+          - --install-dir={{ cloudsdk_install_dir }}
+
+    - name: Clean up
+      ansible.builtin.file:
+        path: /tmp/cloudsdk-install.sh
+        state: absent
