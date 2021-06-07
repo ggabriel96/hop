@@ -1,5 +1,16 @@
 ---
-- include_tasks: "{{ ansible_facts['os_family'] }}.yml"
+- import_role:
+    name: install
+  vars:
+    system: [ snapd ]
+
+- name: Symlink snap executable (RedHat-based only)
+  when: ansible_facts["os_family"] == "RedHat"
+  become: yes
+  ansible.builtin.file:
+    src: /var/lib/snapd/snap
+    dest: /snap
+    state: link
 
 - name: Packages marked for installation
   ansible.builtin.debug:
