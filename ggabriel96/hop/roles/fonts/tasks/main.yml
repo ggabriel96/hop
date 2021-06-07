@@ -1,0 +1,21 @@
+---
+- include_tasks: "{{ ansible_facts['os_family'] }}.yml"
+
+- block:
+  - name: Create the {{ fonts_target_dir }} directory if it does not exist
+    ansible.builtin.file:
+      path: "{{ fonts_target_dir }}"
+      state: directory
+
+  - name: Download JetBrains Mono
+    ansible.builtin.unarchive:
+      src: https://download.jetbrains.com/fonts/JetBrainsMono-{{ jetbrains_mono_version }}.zip
+      dest: "{{ fonts_target_dir }}"
+      remote_src: yes
+
+  - name: Rebuild font cache
+    ansible.builtin.command:
+      argv:
+        - fc-cache
+        - -f
+        - -v

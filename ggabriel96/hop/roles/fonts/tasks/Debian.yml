@@ -1,0 +1,7 @@
+---
+- import_role:
+    name: debian
+  vars:
+    system_packages:
+      - fonts-firacode
+      - fonts-noto

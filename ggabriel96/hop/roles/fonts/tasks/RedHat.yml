@@ -1,0 +1,10 @@
+---
+- import_role:
+    name: redhat
+  vars:
+    system_packages:
+      - fira-code-fonts
+      - google-noto-sans-fonts
+      - google-noto-serif-fonts
+      - google-noto-emoji-fonts
+      - google-noto-emoji-color-fonts
