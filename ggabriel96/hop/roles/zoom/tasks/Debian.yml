@@ -1,0 +1,23 @@
+---
+- name: Add GPG key
+  become: yes
+  ansible.builtin.apt_key:
+    keyserver: https://zoom.us/linux/download/pubkey
+    id: 396060CADD8A75220BFCB369B903BF1861A7C71D
+    state: present
+
+- name: Download package
+  ansible.builtin.get_url:
+    url: https://zoom.us/client/latest/zoom_amd64.deb
+    dest: /tmp/zoom.deb
+
+- name: Install
+  become: yes
+  ansible.builtin.apt:
+    deb: /tmp/zoom.deb
+    state: present
+
+- name: Clean up
+  ansible.builtin.file:
+    path: /tmp/zoom.deb
+    state: absent

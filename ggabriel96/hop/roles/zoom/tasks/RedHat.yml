@@ -1,0 +1,23 @@
+---
+- name: Add GPG key
+  become: yes
+  ansible.builtin.rpm_key:
+    key: https://zoom.us/linux/download/pubkey
+    state: present
+
+- name: Download package
+  ansible.builtin.get_url:
+    url: https://zoom.us/client/latest/zoom_x86_64.rpm
+    dest: /tmp/zoom.rpm
+
+- name: Install
+  become: yes
+  ansible.builtin.dnf:
+    name:
+      - /tmp/zoom.rpm
+    state: latest
+
+- name: Clean up
+  ansible.builtin.file:
+    path: /tmp/zoom.rpm
+    state: absent
