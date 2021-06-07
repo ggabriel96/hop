@@ -2,3 +2,5 @@
 - name: Running package installs for {{ ansible_facts["os_family"] }}
   include_role:
     name: "{{ ansible_facts['os_family'] | lower }}"
+  vars:
+    system_packages: "{{ system }}"
