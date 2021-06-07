@@ -1,14 +1,14 @@
 ---
+- name: Packages marked for installation
+  ansible.builtin.debug:
+    var: system_packages
+
 - name: Update all
   when: update_all
   become: yes
   ansible.builtin.dnf:
     name: "*"
     state: latest
-
-- name: Packages marked for installation
-  ansible.builtin.debug:
-    var: system_packages
 
 - name: Install system packages
   become: yes

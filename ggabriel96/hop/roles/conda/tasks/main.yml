@@ -1,4 +1,8 @@
 ---
+- name: Installation directory for conda
+  ansible.builtin.debug:
+    var: install_dir
+
 - name: Check if already installed
   ansible.builtin.stat:
     path: "{{ install_dir }}"
@@ -6,10 +10,6 @@
 
 - when: not is_miniconda_installed.stat.exists
   block:
-    - name: Installation directory for conda
-      ansible.builtin.debug:
-        var: install_dir
-
     - name: Download
       ansible.builtin.get_url:
         url: https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh

@@ -1,4 +1,8 @@
 ---
+- name: Packages marked for installation
+  ansible.builtin.debug:
+    var: system_packages
+
 - name: Update all
   when: update_all
   become: yes
@@ -13,10 +17,6 @@
     repo: ppa:fish-shell/release-3
     state: present
     validate_certs: yes
-
-- name: Packages marked for installation
-  ansible.builtin.debug:
-    var: system_packages
 
 - name: Install system packages
   become: yes
