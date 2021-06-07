@@ -1,0 +1,5 @@
+---
+- import_role:
+    name: debian
+  vars:
+    system_packages: [ snapd ]

@@ -1,0 +1,16 @@
+---
+- include_tasks: "{{ ansible_facts['os_family'] }}.yml"
+
+- name: Install packages
+  community.general.snap:
+    classic: no
+    state: present
+    channel: "{{ channel }}"
+    name: "{{ packages }}"
+
+- name: Install packages requiring classic confinement
+  community.general.snap:
+    classic: yes
+    state: present
+    channel: "{{ channel }}"
+    name: "{{ classic_packages }}"
