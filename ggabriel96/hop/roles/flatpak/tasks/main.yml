@@ -13,6 +13,10 @@
     method: system
     flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
 
+- name: Packages marked for installation
+  ansible.builtin.debug:
+    var: packages
+
 - name: Install packages
   community.general.flatpak:
     name: item

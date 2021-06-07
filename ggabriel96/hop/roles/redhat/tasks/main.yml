@@ -6,6 +6,10 @@
     name: "*"
     state: latest
 
+- name: Packages marked for installation
+  ansible.builtin.debug:
+    var: system_packages
+
 - name: Install system packages
   become: yes
   ansible.builtin.dnf:

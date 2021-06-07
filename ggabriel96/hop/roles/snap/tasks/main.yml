@@ -1,6 +1,18 @@
 ---
 - include_tasks: "{{ ansible_facts['os_family'] }}.yml"
 
+- name: Packages marked for installation
+  ansible.builtin.debug:
+    var: packages
+
+- name: Packages with classic confinement marked for installation
+  ansible.builtin.debug:
+    var: classic_packages
+
+- name: Selected channel for the packages
+  ansible.builtin.debug:
+    var: channel
+
 - name: Install packages
   community.general.snap:
     classic: no
