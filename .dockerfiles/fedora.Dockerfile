@@ -8,11 +8,10 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
     && useradd -s /bin/bash --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME} -p1nwAnqk8LEzUo -G wheel
 
 RUN dnf update -y
-RUN dnf install -y fontconfig unzip which
+RUN dnf install -y fontconfig git python-ansible-runner unzip which
 
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}/
-RUN pip install ansible
 
 ENTRYPOINT [ "bash" ]
 CMD [ ]
