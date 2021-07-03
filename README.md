@@ -103,11 +103,11 @@ Variables:
 - `link`: list of mappings describing links that should be created.
     The available keys are `src` and `dest`. Defaults to `[]` (nothing)
 
-In any case, will perform a backup of `dest` before replacing it.
-The backup will be located at `.backup-<datetime>/` in the directory of `dest` (or in `dest` itself if it's a directory),
+In any case, the role will perform a backup of `dest` before replacing it.
+The backup will be placed at `<dest>.backup-<datetime>`,
     where `<datetime>` is a simplified version of the current date and time in ISO 8601 format.
-However, **avoid specifying `dest` as a path to a directory**, if `dest` exists,
-    since it will be backed up as many times as it appears in the list.
+Note that the backup will end up _beside_ `dest` if it's a file or _inside_ it if it's a directory.
+Also, backups of already backed up directories will contain the older backups.
 
 </details>
 
