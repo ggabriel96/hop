@@ -6,6 +6,16 @@
     - google-cloud-sdk
     - zoom
 
+    - role: files
+      vars:
+        download:
+          - url: https://raw.githubusercontent.com/ggabriel96/dotfiles/main/home/.bashrc
+            dest: ~/.bashrc
+          - url: https://raw.githubusercontent.com/ggabriel96/dotfiles/main/home/.bash_profile
+            dest: ~/.bash_profile
+          - url: https://raw.githubusercontent.com/ggabriel96/dotfiles/main/home/.config/fish/config.fish
+            dest: ~/.config/fish/config.fish
+
     - role: flatpak
       vars:
         packages:
@@ -44,10 +54,3 @@
         git_user_email: ggabriel96@hotmail.com
         ssh_keys:
           - id_github
-        user_files:
-          - url: https://raw.githubusercontent.com/ggabriel96/dotfiles/main/home/.bashrc
-            dest: ~/.bashrc
-          - url: https://raw.githubusercontent.com/ggabriel96/dotfiles/main/home/.bash_profile
-            dest: ~/.bash_profile
-          - url: https://raw.githubusercontent.com/ggabriel96/dotfiles/main/home/.config/fish/config.fish
-            dest: ~/.config/fish/config.fish
