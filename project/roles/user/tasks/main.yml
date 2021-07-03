@@ -1,5 +1,5 @@
 ---
-- block:
+- block: # git
   - name: Set global git user.name
     ansible.builtin.command:
       argv:
@@ -20,7 +20,7 @@
         - "{{ git_user_email }}"
     when: git_user_email is defined
 
-- block:
+- block: # SSH
   - name: Ensure keys directory exists
     ansible.builtin.file:
       path: "{{ ssh_keys_dir }}"
@@ -40,7 +40,7 @@
       executable: /bin/bash
     when: generation_result is changed
 
-- block:
+- block: # login shell
   - name: Get path to chosen login shell
     ansible.builtin.command:
       argv:
@@ -53,3 +53,44 @@
     ansible.builtin.user:
       name: "{{ ansible_env.USER }}"
       shell: "{{ shell_path.stdout }}"
+
+- block: # download or link files, e.g. config
+  - name: Check if provided mutually-exclusive `src` and `url`
+    ansible.builtin.assert:
+      that:
+        - not (item.src is defined and item.url is defined)
+      fail_msg: "`src` and `url` cannot be specified for the same config file."
+    loop: "{{ user_files }}"
+
+  - name: Create destination directories
+    ansible.builtin.file:
+      path: "{{ item.dest | dirname }}"
+      state: directory
+    loop: "{{ user_files }}"
+
+  - name: Check existing files
+    ansible.builtin.stat:
+      path: "{{ item.dest }}"
+    loop: "{{ user_files }}"
+    register: stat_result
+
+  - name: Backup existing files
+    ansible.builtin.copy:
+      src: "{{ item.path }}"
+      dest: "{{ item.path | dirname }}/.backup/"
+      force: yes
+    loop: "{{ stat_result.results | map(attribute='stat') | selectattr('exists') | list }}"
+
+  - name: Download remote files with `url`
+    ansible.builtin.get_url:
+      url: "{{ item.url }}"
+      dest: "{{ item.dest }}"
+    loop: "{{ user_files | selectattr('url', 'defined') | list }}"
+
+  - name: Link local files with `src`
+    ansible.builtin.file:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      state: link
+      force: yes
+    loop: "{{ user_files | selectattr('src', 'defined') | list }}"
