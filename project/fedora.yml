@@ -28,6 +28,7 @@
       vars:
         classic_packages:
           - code
+          - pycharm-professional
           - slack
         packages:
           - spotify
