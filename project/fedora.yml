@@ -1,0 +1,40 @@
+---
+- hosts: localhost
+  roles:
+    - conda
+    - fonts
+    - google-cloud-sdk
+    - zoom
+
+    - role: flatpak
+      vars:
+        packages:
+          - com.github.calo001.fondo
+          - org.videolan.VLC
+
+    - role: install
+      vars:
+        system:
+          - dnf-plugins-core
+          - fedora-workstation-repositories
+          - fish
+          - gcc-c++
+          - htop
+          - neovim
+          - podman
+          - toolbox
+
+    - role: snap
+      vars:
+        classic_packages:
+          - code
+          - slack
+        packages:
+          - spotify
+
+    - role: user
+      vars:
+        git_user_name: Gabriel Galli
+        git_user_email: ggabriel96@hotmail.com
+        ssh_keys:
+          - id_github
