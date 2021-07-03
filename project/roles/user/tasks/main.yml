@@ -1,0 +1,21 @@
+---
+- block:
+  - name: Set global git user.name
+    ansible.builtin.command:
+      argv:
+        - git
+        - config
+        - --global
+        - user.name
+        - "{{ git_user_name }}"
+    when: git_user_name is defined
+
+  - name: Set global git user.email
+    ansible.builtin.command:
+      argv:
+        - git
+        - config
+        - --global
+        - user.email
+        - "{{ git_user_email }}"
+    when: git_user_email is defined
