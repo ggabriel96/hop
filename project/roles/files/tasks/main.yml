@@ -18,7 +18,7 @@
   - name: Backup existing files
     ansible.builtin.copy:
       src: "{{ item.path }}"
-      dest: "{{ item.path | dirname }}/.backup/"
+      dest: "{{ item.path | dirname }}/.backup-{{ ansible_date_time.iso8601_basic_short }}/"
       force: yes
     loop: "{{ stat_result.results | map(attribute='stat') | selectattr('exists') | list }}"
 
