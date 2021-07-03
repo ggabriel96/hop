@@ -104,9 +104,10 @@ Variables:
     The available keys are `src` and `dest`. Defaults to `[]` (nothing)
 
 In any case, will perform a backup of `dest` before replacing it.
-The backup will be located at `.backup/` in the directory of `dest` (or in `dest` itself if it's a directory).
+The backup will be located at `.backup-<datetime>/` in the directory of `dest` (or in `dest` itself if it's a directory),
+    where `<datetime>` is a simplified version of the current date and time in ISO 8601 format.
 However, **avoid specifying `dest` as a path to a directory**, if `dest` exists,
-    since it will be backed up as many times as it appears in the list, nesting `.backup/` directories.
+    since it will be backed up as many times as it appears in the list.
 
 </details>
 
