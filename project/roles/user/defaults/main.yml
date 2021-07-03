@@ -5,5 +5,4 @@ ssh_keys: []
 # ssh_keys_comment:
 ssh_keys_dir: ~/.ssh
 ssh_keys_type: ed25519
-user_files: []
 user_login_shell: bash

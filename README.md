@@ -92,6 +92,25 @@ Variables:
 </details>
 
 <details>
+<summary>files</summary>
+
+Download remote files or create links to local files.
+
+Variables:
+
+- `download`: list of mappings describing files that should be downloaded.
+    The available keys are `url` and `dest`. Defaults to `[]` (nothing)
+- `link`: list of mappings describing links that should be created.
+    The available keys are `src` and `dest`. Defaults to `[]` (nothing)
+
+In any case, will perform a backup of `dest` before replacing it.
+The backup will be located at `.backup/` in the directory of `dest` (or in `dest` itself if it's a directory).
+However, **avoid specifying `dest` as a path to a directory**, if `dest` exists,
+    since it will be backed up as many times as it appears in the list, nesting `.backup/` directories.
+
+</details>
+
+<details>
 <summary>flatpak</summary>
 
 Configure Flatpak and install packages.
@@ -192,13 +211,6 @@ Variables:
     Defaults to the value of the `git_user_email` variable or no comment if that's not provided
 - `ssh_keys_dir`: directory in which to create the keys. Defaults to `~/.ssh`
 - `ssh_keys_type`: type of keys to create. Defaults to `ed25519`
-- `user_files`: list of mappings describing files that should be downloaded or linked.
-    The available keys are `src` or `url` (mutually-exclusive), and `dest`.
-    Will perform a backup of `dest` before replacing it with the downloaded file or making it a link pointing to `src`.
-    The backup will be located at `.backup/` in the directory of `dest` (or `dest` itself if it's a directory).
-    However, **avoid specifying `dest` as a path to a directory**,
-        since it will be backed up as many times as it appears in the list, nesting `.backup/` directories.
-    Defaults to `[]` (nothing)
 - `user_login_shell`: name of login shell to set for current user (separately installed). Defaults to `bash`
 
 </details>

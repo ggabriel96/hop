@@ -1,0 +1,37 @@
+---
+- block:
+  - ansible.builtin.set_fact:
+      all_files_concatenated: "{{ download + link }}"
+
+  - name: Create destination directories
+    ansible.builtin.file:
+      path: "{{ item.dest | dirname }}"
+      state: directory
+    loop: "{{ all_files_concatenated }}"
+
+  - name: Check existing files
+    ansible.builtin.stat:
+      path: "{{ item.dest }}"
+    loop: "{{ all_files_concatenated }}"
+    register: stat_result
+
+  - name: Backup existing files
+    ansible.builtin.copy:
+      src: "{{ item.path }}"
+      dest: "{{ item.path | dirname }}/.backup/"
+      force: yes
+    loop: "{{ stat_result.results | map(attribute='stat') | selectattr('exists') | list }}"
+
+  - name: Download remote files
+    ansible.builtin.get_url:
+      url: "{{ item.url }}"
+      dest: "{{ item.dest }}"
+    loop: "{{ download }}"
+
+  - name: Link local files
+    ansible.builtin.file:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      state: link
+      force: yes
+    loop: "{{ link }}"
