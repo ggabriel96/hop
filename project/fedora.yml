@@ -32,6 +32,11 @@
         packages:
           - spotify
 
+    - role: sysctl
+      vars:
+        sysctl_entries:
+          fs.inotify.max_user_watches: "524288"
+
     - role: user
       vars:
         git_user_name: Gabriel Galli

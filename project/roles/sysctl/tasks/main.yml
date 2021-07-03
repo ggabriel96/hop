@@ -1,0 +1,8 @@
+---
+- ansible.posix.sysctl:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+    reload: "{{ sysctl_reload }}"
+    state: present
+  become: true
+  loop: "{{ sysctl_entries | dict2items }}"
