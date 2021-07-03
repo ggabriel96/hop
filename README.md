@@ -33,7 +33,7 @@ So feel free to use it, but at your own risk.
     The playbook I use is [`project/fedora.yml`](project/fedora.yml), so I will use it in the command examples.
     Replace it with your own if not editing it directly.
 
-1. Run with either `ansible-playbook` or `ansible-runner`.
+1. Run with either `ansible-playbook` (it comes with Ansible) or `ansible-runner`.
     Prefer `ansible-runner` when running the playbook multiple times, e.g. when experimenting,
         since it will automatically fill in your `sudo` password.
 
@@ -43,7 +43,7 @@ So feel free to use it, but at your own risk.
         ansible-playbook -K ${HOP_DIR}/project/fedora.yml
         ```
 
-    - `ansible-runner`:
+    - With `ansible-runner`:
 
         1. Tell your `sudo` password.
             Fill it in `${HOP_DIR}/env/passwords` (replacing `your sudo password`; you can undo the changes when done).
