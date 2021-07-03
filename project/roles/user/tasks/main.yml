@@ -39,3 +39,17 @@
       cmd: eval "$(ssh-agent -s)" && ssh-add {{ generation_result.results | select("changed") | map(attribute="filename") | join(" ")  }}
       executable: /bin/bash
     when: generation_result is changed
+
+- block:
+  - name: Get path to chosen login shell
+    ansible.builtin.command:
+      argv:
+        - which
+        - "{{ user_login_shell }}"
+    register: shell_path
+
+  - name: Change login shell
+    become: true
+    ansible.builtin.user:
+      name: "{{ ansible_env.USER }}"
+      shell: "{{ shell_path.stdout }}"
