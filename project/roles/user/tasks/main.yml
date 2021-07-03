@@ -19,3 +19,23 @@
         - user.email
         - "{{ git_user_email }}"
     when: git_user_email is defined
+
+- block:
+  - name: Ensure keys directory exists
+    ansible.builtin.file:
+      path: "{{ ssh_keys_dir }}"
+      state: directory
+
+  - name: Generate SSH keys
+    community.crypto.openssh_keypair:
+      comment: "{{ ssh_keys_comment | default(git_user_email) | default(omit) }}"
+      path: "{{ ssh_keys_dir + '/' + item }}"
+      type: "{{ ssh_keys_type }}"
+    loop: "{{ ssh_keys }}"
+    register: generation_result
+
+  - name: Add new SSH keys to SSH agent
+    ansible.builtin.shell:
+      cmd: eval "$(ssh-agent -s)" && ssh-add {{ generation_result.results | select("changed") | map(attribute="filename") | join(" ")  }}
+      executable: /bin/bash
+    when: generation_result is changed

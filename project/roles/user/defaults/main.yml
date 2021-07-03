@@ -1,3 +1,7 @@
 ---
 # git_user_email:
 # git_user_name:
+ssh_keys: []
+# ssh_keys_comment:
+ssh_keys_dir: ~/.ssh
+ssh_keys_type: ed25519
