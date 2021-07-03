@@ -2,7 +2,9 @@ FROM ubuntu:20.04
 ARG USERNAME=hop
 ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
+
 ENV PATH="/home/${USERNAME}/.local/bin/:${PATH}"
+ENV USER ${USERNAME}
 
 # password is `hop`
 RUN groupadd --gid ${USER_GID} ${USERNAME} \
