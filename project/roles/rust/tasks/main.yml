@@ -1,0 +1,25 @@
+---
+- name: Check if already installed
+  ansible.builtin.stat:
+    path: "{{ install_dir }}"
+  register: is_rustup_installed
+
+- when: not is_rustup_installed.stat.exists
+  block:
+    - name: Download
+      ansible.builtin.get_url:
+        url: https://sh.rustup.rs
+        dest: /tmp/rustup-init.sh
+        mode: "0755"
+
+    - name: Install
+      ansible.builtin.command:
+        argv:
+          - /tmp/rustup-init.sh
+          - --no-modify-path
+          - -y
+
+    - name: Clean up
+      ansible.builtin.file:
+        path: /tmp/rustup-init.sh
+        state: absent

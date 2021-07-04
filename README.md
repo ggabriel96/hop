@@ -174,6 +174,16 @@ Variables:
 </details>
 
 <details>
+<summary>rust</summary>
+
+Install [Rust](https://www.rust-lang.org/) using the official [Linux installer](https://www.rust-lang.org/tools/install).
+
+Has no variables.
+Currently, accepts the default settings from the install script and **does not modify `PATH`**.
+
+</details>
+
+<details>
 <summary>snap</summary>
 
 Configure Snap and install packages.

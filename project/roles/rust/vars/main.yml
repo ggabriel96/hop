@@ -1,0 +1,5 @@
+---
+install_dir: "{{ ansible_env.HOME }}/.rustup/"
+is_rustup_installed:
+  stat:
+    exists: false
