@@ -1,23 +1,25 @@
 ---
-- name: Packages marked for installation
-  ansible.builtin.debug:
-    var: system_packages
+- block:
+    - name: Packages marked for installation
+      ansible.builtin.debug:
+        var: system_packages
 
-- name: Update all
-  when: update_all
-  become: yes
-  ansible.builtin.dnf:
-    name: "*"
-    state: latest
+    - name: Update all
+      when: update_all
+      become: yes
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
 
-- name: Install system packages
-  become: yes
-  ansible.builtin.dnf:
-    name: "{{ system_packages }}"
-    state: latest
+    - name: Install system packages
+      become: yes
+      ansible.builtin.dnf:
+        name: "{{ system_packages }}"
+        state: latest
 
-- name: Clean up
-  become: yes
-  when: cleanup
-  ansible.builtin.dnf:
-    autoremove: yes
+    - name: Clean up
+      become: yes
+      when: cleanup
+      ansible.builtin.dnf:
+        autoremove: yes
+  when: ansible_facts["os_family"] == "RedHat"
