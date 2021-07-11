@@ -1,0 +1,30 @@
+# tasks based on https://flutter.dev/docs/get-started/install/linux
+---
+- name: Install Flutter dependencies
+  block:
+    - import_role:
+        name: install
+      vars:
+        system:
+          - unzip
+          - zip
+
+    - import_role:
+        name: debian
+      vars:
+        system_packages:
+          - libglu1-mesa
+          - xz-utils
+
+    - import_role:
+        name: redhat
+      vars:
+        system_packages:
+          - mesa-libGLU
+          - xz
+
+- name: Install Flutter
+  import_role:
+    name: snap
+  vars:
+    classic_packages: [ flutter ]

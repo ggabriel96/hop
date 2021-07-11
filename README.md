@@ -124,6 +124,15 @@ Variables:
 </details>
 
 <details>
+<summary>flutter</summary>
+
+Install [Flutter via snap](https://flutter.dev/docs/get-started/install/linux).
+
+Has no variables.
+
+</details>
+
+<details>
 <summary>fonts</summary>
 
 Shortcut to install some fonts I like (Fira Code, Google's Noto, and JetBrains Mono).
