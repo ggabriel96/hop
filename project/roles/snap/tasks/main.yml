@@ -25,6 +25,7 @@
     state: link
 
 - name: Install packages
+  become: yes
   community.general.snap:
     classic: no
     state: present
@@ -32,6 +33,7 @@
     name: "{{ packages }}"
 
 - name: Install packages requiring classic confinement
+  become: yes
   community.general.snap:
     classic: yes
     state: present
