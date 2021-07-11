@@ -18,6 +18,7 @@
       vars:
         system:
           - fish
+          - gnome-keyring
           - htop
 
     - role: snap
