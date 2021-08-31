@@ -92,6 +92,14 @@ Variables:
 </details>
 
 <details>
+<summary>elementary os</summary>
+
+Just delegates to the `debian` role.
+Refer to its description.
+
+</details>
+
+<details>
 <summary>files</summary>
 
 Download remote files or create links to local files.
