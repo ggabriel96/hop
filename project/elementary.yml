@@ -1,0 +1,40 @@
+---
+- hosts: localhost
+  roles:
+    - conda
+    - fonts
+
+    - role: files
+      vars:
+        download:
+          - url: https://raw.githubusercontent.com/ggabriel96/dotfiles/main/home/.bashrc
+            dest: ~/.bashrc
+          - url: https://raw.githubusercontent.com/ggabriel96/dotfiles/main/home/.bash_profile
+            dest: ~/.bash_profile
+          - url: https://raw.githubusercontent.com/ggabriel96/dotfiles/main/home/.config/fish/config.fish
+            dest: ~/.config/fish/config.fish
+
+    - role: install
+      vars:
+        system:
+          - fish
+          - htop
+
+    - role: snap
+      vars:
+        classic_packages:
+          - code
+          - pycharm-professional
+          - slack
+
+    - role: sysctl
+      vars:
+        sysctl_entries:
+          fs.inotify.max_user_watches: "524288"
+
+    - role: user
+      vars:
+        git_user_name: Gabriel Galli
+        git_user_email: ggabriel96@hotmail.com
+        ssh_keys:
+          - id_github
