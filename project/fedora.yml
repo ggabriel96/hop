@@ -4,7 +4,13 @@
     - conda
     - fonts
     - google-cloud-sdk
-    - zoom
+
+    - role: install
+      vars:
+        system:
+          - fish
+          - htop
+          - kakoune
 
     - role: files
       vars:
@@ -20,28 +26,12 @@
       vars:
         packages:
           - com.github.calo001.fondo
+          - com.jetbrains.PyCharm-Professional
+          - com.slack.Slack
+          - com.spotify.Client
+          - com.visualstudio.code
           - org.videolan.VLC
-
-    - role: install
-      vars:
-        system:
-          - dnf-plugins-core
-          - fedora-workstation-repositories
-          - fish
-          - gcc-c++
-          - htop
-          - neovim
-          - podman
-          - toolbox
-
-    - role: snap
-      vars:
-        classic_packages:
-          - code
-          - pycharm-professional
-          - slack
-        packages:
-          - spotify
+          - us.zoom.Zoom
 
     - role: sysctl
       vars:
